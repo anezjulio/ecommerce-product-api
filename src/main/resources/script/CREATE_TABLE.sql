@@ -16,4 +16,4 @@ VALUES (2, "pizza","pizza de queso", 70 );
 
 
 INSERT INTO kioskodb.product ( name, description, price)
-VALUES ( "pizza","pizza de queso", 70 );
+VALUES (3 "pizza","pizza de camarones", 105 );
