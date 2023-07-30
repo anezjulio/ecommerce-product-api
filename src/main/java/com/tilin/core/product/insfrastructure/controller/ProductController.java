@@ -1,6 +1,7 @@
 package com.tilin.core.product.insfrastructure.controller;
 
 import com.tilin.core.product.application.dto.DeleteProductResponseDTO;
+import com.tilin.core.product.application.dto.ProductResponseDTO;
 import com.tilin.core.product.application.dto.RequestProductDTO;
 import com.tilin.core.product.application.service.ProductService;
 import com.tilin.core.product.domain.models.Product;
@@ -22,34 +23,33 @@ public class ProductController {
     }
 
     @GetMapping(value = "/list-product")
-    public ResponseEntity<List<Product>> listProduct() {
-        return ResponseEntity.ok(productService.getProductList());
+    public ResponseEntity<ProductResponseDTO> listProduct() {
+        return ResponseEntity.ok(productService.getProductListResponse());
     }
 
     @GetMapping(value = "/find-product/{productId}")
-    public ResponseEntity<Product> getProduct(@PathVariable Long productId) {
-        return ResponseEntity.ok(productService.getProductById(productId));
+    public ResponseEntity<ProductResponseDTO> getProduct(@PathVariable Long productId) {
+        return ResponseEntity.ok(productService.getProductByIdResponse(productId));
     }
 
     @PostMapping(value = "/insert-product")
-    public ResponseEntity<List<Product>> insertProduct(@RequestBody RequestProductDTO requestProductDTO) {
+    public ResponseEntity<ProductResponseDTO> insertProduct(@RequestBody RequestProductDTO requestProductDTO) {
         return ResponseEntity.ok(
-                productService.insertProduct(
+                productService.insertProductResponse(
                         requestProductDTO.getProductList()));
     }
 
     @PostMapping(value = "/modify-product")
-    public ResponseEntity<List<Product>> modifyProduct(@RequestBody RequestProductDTO requestProductDTO) {
+    public ResponseEntity<ProductResponseDTO> modifyProduct(@RequestBody RequestProductDTO requestProductDTO) {
         return ResponseEntity.ok(
-                productService.modifyProduct(
+                productService.modifyProductResponse(
                         requestProductDTO.getProductList()));
     }
 
     @GetMapping(value = "/delete-product/{productId}")
-    public ResponseEntity<DeleteProductResponseDTO> deleteProduct(@PathVariable Long productId) {
+    public ResponseEntity<ProductResponseDTO> deleteProduct(@PathVariable Long productId) {
         return ResponseEntity.ok(
-                new DeleteProductResponseDTO(
-                        productService.deleteProduct(productId)));
+                        productService.deleteProductResponse(productId));
     }
 
 }
