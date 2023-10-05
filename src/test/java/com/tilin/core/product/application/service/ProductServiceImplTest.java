@@ -140,7 +140,7 @@ public class ProductServiceImplTest {
         String response = productService.deleteProduct(productId);
 
         // asserts
-        assertEquals("id: " + productId + " has been deleted.", response);
+        assertEquals("id: " + productId + " have been deleted.", response);
 
         // asserts
         verify(productRepository, times(1)).deleteById(Mockito.anyLong());
