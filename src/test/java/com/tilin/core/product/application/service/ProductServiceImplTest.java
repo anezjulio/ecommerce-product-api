@@ -48,7 +48,7 @@ public class ProductServiceImplTest {
                 .thenReturn(Optional.ofNullable(GlobalMocks.get3ProductList().get(0)));
 
         // test
-        Product product = productService.getProductById(productId);
+        Product product = productService.getProductById(String.valueOf(productId));
 
         // asserts
         assertEquals(1, product.getProductId());
@@ -65,7 +65,7 @@ public class ProductServiceImplTest {
                 .thenReturn(Optional.ofNullable(GlobalMocks.getEmptyProduct()));
 
         // test
-        Product product = productService.getProductById(productId);
+        Product product = productService.getProductById(String.valueOf(productId));
 
         // asserts
         assertEquals(0, product.getProductId());

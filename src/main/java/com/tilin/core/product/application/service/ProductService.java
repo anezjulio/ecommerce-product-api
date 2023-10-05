@@ -11,9 +11,9 @@ public interface ProductService {
 
     ProductResponseDTO getProductListResponse();
 
-    Product getProductById(Long productId);
+    Product getProductById(String productId);
 
-    ProductResponseDTO getProductByIdResponse(Long productId);
+    ProductResponseDTO getProductByIdResponse(String productId);
 
     List<Product> insertProduct(List<Product> requestProductList);
 

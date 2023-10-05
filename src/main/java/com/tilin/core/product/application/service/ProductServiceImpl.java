@@ -1,12 +1,15 @@
 package com.tilin.core.product.application.service;
 
+import com.tilin.core.product.application.constants.ApplicationConstant;
 import com.tilin.core.product.application.dto.ProductResponseDTO;
+import com.tilin.core.product.application.exception.ProductException;
 import com.tilin.core.product.domain.models.Product;
 import com.tilin.core.product.domain.repository.ProductRepository;
 import com.tilin.core.product.insfrastructure.controller.ProductController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,55 +20,59 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
 
     private static final Logger logger = LogManager.getLogger(ProductController.class);
-
     private ProductRepository productRepository;
 
     @Autowired
-    public void setProductRepository(ProductRepository productRepository){
+    public void setProductRepository(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
     public ProductResponseDTO getProductListResponse() {
         return new ProductResponseDTO(
-                "200",
-                "Product listed succesfully",
+                ApplicationConstant.STATUS_200,
+                ApplicationConstant.MESSAGE_PRODUCT_LISTED_SUCCESFULLY,
                 this.getProductList()
         );
     }
 
     public List<Product> getProductList() {
         List<Product> productList = productRepository.findAll();
-        logger.info("---------------------------------------------");
+        logger.info(ApplicationConstant.MESSAGE_DIVISOR);
         productList.stream().forEach(
                 product -> logger.info(product.getName())
         );
         return productList;
     }
 
-    public Product getProductById(Long productId) {
-        Optional<Product> optionalProduct = productRepository.findById(productId);
-        if (optionalProduct.isPresent()) {
-            return optionalProduct.get();
-        } else {
-            logger.info("Error, id: " + productId + " not found.");
-            return new Product();
+    public Product getProductById(String productId) {
+        try {
+            Optional<Product> optionalProduct = productRepository.findById(Long.parseLong(productId));
+            if (optionalProduct.isPresent()) {
+                return optionalProduct.get();
+            } else {
+                logger.info(ApplicationConstant.MESSAGE_ERROR_ID + productId + ApplicationConstant.MESSAGE_NOT_FOUND);
+                throw new ProductException(HttpStatus.BAD_REQUEST, "Error finding product with specific id", productId);
+            }
+        } catch (Exception e){
+            throw new ProductException(HttpStatus.BAD_REQUEST, "Error finding product with specific id", productId);
         }
+
     }
 
     @Override
-    public ProductResponseDTO getProductByIdResponse(Long productId) {
+    public ProductResponseDTO getProductByIdResponse(String productId) {
         return new ProductResponseDTO(
-                "200",
-                "Product "+productId+" found succesfully",
+                ApplicationConstant.STATUS_200,
+                ApplicationConstant.MESSAGE_PRODUCT + productId + ApplicationConstant.MESSAGE_FOUND_SUCCESFULLY,
                 this.getProductById(productId)
         );
     }
 
     public List<Product> insertProduct(List<Product> requestProductList) {
-        try{
+        try {
             return productRepository.saveAll(requestProductList);
-        } catch (Exception e){
-            logger.info("Error, the list of products couldn't be inserted.");
+        } catch (Exception e) {
+            logger.info(ApplicationConstant.MESSAGE_ERROR_PRODUCTS_COULDNT_BE_INSERTED);
         }
         return new ArrayList<Product>();
     }
@@ -73,17 +80,17 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponseDTO insertProductResponse(List<Product> requestProductList) {
         return new ProductResponseDTO(
-                "200",
-                "Product list inserted succesfully",
+                ApplicationConstant.STATUS_200,
+                ApplicationConstant.MESSAGE_PRODUCT_LIST_INSERTED_SUCCESFULLY,
                 this.insertProduct(requestProductList)
         );
     }
 
     public List<Product> modifyProduct(List<Product> requestListProductDTO) {
-        try{
+        try {
             return productRepository.saveAllAndFlush(requestListProductDTO);
-        } catch (Exception e){
-            logger.info("Error, the list of products couldn't be modified.");
+        } catch (Exception e) {
+            logger.info(ApplicationConstant.MESSAGE_ERROR_PRODUCTS_COULDNT_BE_MODIFIED);
         }
         return new ArrayList<Product>();
     }
@@ -91,26 +98,26 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponseDTO modifyProductResponse(List<Product> requestProductList) {
         return new ProductResponseDTO(
-                "200",
-                "Product list have been modified succesfully",
+                ApplicationConstant.STATUS_200,
+                ApplicationConstant.MESSAGE_PRODUCT_LIST_HAVE_BEEN_MODIFIED_SUCCESFULLY,
                 this.modifyProduct(requestProductList)
         );
     }
 
     public String deleteProduct(Long productId) {
-        try{
+        try {
             productRepository.deleteById(productId);
-            return "id: " + productId + " has been deleted.";
-        } catch (Exception e){
-            return "Error, id: " + productId + " doesn't exists.";
+            return ApplicationConstant.MESSAGE_ID + productId + ApplicationConstant.MESSAGE_HAVE_BEEN_DELETED;
+        } catch (Exception e) {
+            return ApplicationConstant.MESSAGE_ERROR_ID + productId + ApplicationConstant.MESSAGE_DOESN_T_EXISTS;
         }
     }
 
     @Override
     public ProductResponseDTO deleteProductResponse(Long productId) {
         return new ProductResponseDTO(
-                "200",
-                "Product " +productId+" have been deleted succesfully",
+                ApplicationConstant.STATUS_200,
+                ApplicationConstant.MESSAGE_PRODUCT + productId + ApplicationConstant.MESSAGE_HAVE_BEEN_DELETED_SUCCESFULLY,
                 this.deleteProduct(productId)
         );
     }
