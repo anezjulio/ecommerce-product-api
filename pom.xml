@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.tilin</groupId>
-    <artifactId>core.product</artifactId>
+    <artifactId>ecommerce.api.product</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>core-product</name>
-    <description>core-product</description>
+    <name>ecommerce-api-product</name>
+    <description>ecommerce-api-product</description>
 
     <properties>
         <jdbc.url>your_dev_URL</jdbc.url>
