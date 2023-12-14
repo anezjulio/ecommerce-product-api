@@ -31,33 +31,27 @@ public abstract class AdvisorController {
             String message,
             Object data,
             Exception ex) {
-
         logger.error("Error, " + this.getClass().getName() + " - in request: " + request.getRequestURI(), ex);
-
         ErrorResponseDTO errorResponse = getErrorResponseDTO(
                 HttpStatus.BAD_REQUEST,
                 ex.getMessage(),
                 "",
                 LocalDateTime.now(),
                 request.getRequestURI());
-
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
-   @ExceptionHandler(Exception.class)
+    @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public ResponseEntity<ErrorResponseDTO> baseErrorHandleException(Exception ex) {
-
         logger.error("Error in request: " + request.getRequestURI(), ex);
-
         ErrorResponseDTO errorResponse = getErrorResponseDTO(
                 HttpStatus.INTERNAL_SERVER_ERROR,
                 ex.getMessage(),
                 "",
                 LocalDateTime.now(),
                 request.getRequestURI());
-
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
     }
 
@@ -67,15 +61,12 @@ public abstract class AdvisorController {
             Object data,
             LocalDateTime dateTime,
             String uri) {
-
         ErrorResponseDTO errorResponse = new ErrorResponseDTO();
-
         errorResponse.setStatus(String.valueOf(httpStatus.value()));
         errorResponse.setMessage(message);
         errorResponse.setData(data);
         errorResponse.setDateTime(dateTime);
         errorResponse.setUri(uri);
-
         return errorResponse;
     }
 

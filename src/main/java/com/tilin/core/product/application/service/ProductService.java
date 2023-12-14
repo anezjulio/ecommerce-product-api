@@ -8,23 +8,15 @@ import java.util.List;
 public interface ProductService {
 
     List<Product> getProductList();
-
-    ProductResponseDTO getProductListResponse();
-
     Product getProductById(String productId);
-
-    ProductResponseDTO getProductByIdResponse(String productId);
-
     List<Product> insertProduct(List<Product> requestProductList);
-
-    ProductResponseDTO insertProductResponse(List<Product> requestProductList);
-
     List<Product> modifyProduct(List<Product> requestProductList);
-
-    ProductResponseDTO modifyProductResponse(List<Product> requestProductList);
-
     String deleteProduct(Long productId);
 
+    ProductResponseDTO getProductListResponse();
+    ProductResponseDTO getProductByIdResponse(String productId);
+    ProductResponseDTO insertProductResponse(List<Product> requestProductList);
+    ProductResponseDTO modifyProductResponse(List<Product> requestProductList);
     ProductResponseDTO deleteProductResponse(Long productId);
 
 }

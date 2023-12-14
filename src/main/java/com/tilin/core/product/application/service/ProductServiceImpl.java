@@ -27,13 +27,6 @@ public class ProductServiceImpl implements ProductService {
         this.productRepository = productRepository;
     }
 
-    public ProductResponseDTO getProductListResponse() {
-        return new ProductResponseDTO(
-                ApplicationConstant.STATUS_200,
-                ApplicationConstant.MESSAGE_PRODUCT_LISTED_SUCCESFULLY,
-                this.getProductList()
-        );
-    }
 
     public List<Product> getProductList() {
         List<Product> productList = productRepository.findAll();
@@ -59,15 +52,6 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
-    @Override
-    public ProductResponseDTO getProductByIdResponse(String productId) {
-        return new ProductResponseDTO(
-                ApplicationConstant.STATUS_200,
-                ApplicationConstant.MESSAGE_PRODUCT + productId + ApplicationConstant.MESSAGE_FOUND_SUCCESFULLY,
-                this.getProductById(productId)
-        );
-    }
-
     public List<Product> insertProduct(List<Product> requestProductList) {
         try {
             return productRepository.saveAll(requestProductList);
@@ -75,15 +59,6 @@ public class ProductServiceImpl implements ProductService {
             logger.info(ApplicationConstant.MESSAGE_ERROR_PRODUCTS_COULDNT_BE_INSERTED);
         }
         return new ArrayList<Product>();
-    }
-
-    @Override
-    public ProductResponseDTO insertProductResponse(List<Product> requestProductList) {
-        return new ProductResponseDTO(
-                ApplicationConstant.STATUS_200,
-                ApplicationConstant.MESSAGE_PRODUCT_LIST_INSERTED_SUCCESFULLY,
-                this.insertProduct(requestProductList)
-        );
     }
 
     public List<Product> modifyProduct(List<Product> requestListProductDTO) {
@@ -95,15 +70,6 @@ public class ProductServiceImpl implements ProductService {
         return new ArrayList<Product>();
     }
 
-    @Override
-    public ProductResponseDTO modifyProductResponse(List<Product> requestProductList) {
-        return new ProductResponseDTO(
-                ApplicationConstant.STATUS_200,
-                ApplicationConstant.MESSAGE_PRODUCT_LIST_HAVE_BEEN_MODIFIED_SUCCESFULLY,
-                this.modifyProduct(requestProductList)
-        );
-    }
-
     public String deleteProduct(Long productId) {
         try {
             productRepository.deleteById(productId);
@@ -111,6 +77,42 @@ public class ProductServiceImpl implements ProductService {
         } catch (Exception e) {
             return ApplicationConstant.MESSAGE_ERROR_ID + productId + ApplicationConstant.MESSAGE_DOESN_T_EXISTS;
         }
+    }
+
+    @Override
+    public ProductResponseDTO getProductListResponse() {
+        return new ProductResponseDTO(
+                ApplicationConstant.STATUS_200,
+                ApplicationConstant.MESSAGE_PRODUCT_LISTED_SUCCESFULLY,
+                this.getProductList()
+        );
+    }
+
+    @Override
+    public ProductResponseDTO getProductByIdResponse(String productId) {
+        return new ProductResponseDTO(
+                ApplicationConstant.STATUS_200,
+                ApplicationConstant.MESSAGE_PRODUCT + productId + ApplicationConstant.MESSAGE_FOUND_SUCCESFULLY,
+                this.getProductById(productId)
+        );
+    }
+
+    @Override
+    public ProductResponseDTO insertProductResponse(List<Product> requestProductList) {
+        return new ProductResponseDTO(
+                ApplicationConstant.STATUS_200,
+                ApplicationConstant.MESSAGE_PRODUCT_LIST_INSERTED_SUCCESFULLY,
+                this.insertProduct(requestProductList)
+        );
+    }
+
+    @Override
+    public ProductResponseDTO modifyProductResponse(List<Product> requestProductList) {
+        return new ProductResponseDTO(
+                ApplicationConstant.STATUS_200,
+                ApplicationConstant.MESSAGE_PRODUCT_LIST_HAVE_BEEN_MODIFIED_SUCCESFULLY,
+                this.modifyProduct(requestProductList)
+        );
     }
 
     @Override
