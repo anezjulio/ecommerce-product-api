@@ -11,8 +11,8 @@
     <groupId>com.tilin</groupId>
     <artifactId>ecommerce.api.product</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ecommerce-api-product</name>
-    <description>ecommerce-api-product</description>
+    <name>ecommerce-product-api</name>
+    <description>ecommerce-product-api</description>
 
     <properties>
         <jdbc.url>your_dev_URL</jdbc.url>

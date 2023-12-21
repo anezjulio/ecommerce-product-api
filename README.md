@@ -1,4 +1,4 @@
-# ecommerce-api-product
+# ecommerce-product-api
 
 
 
