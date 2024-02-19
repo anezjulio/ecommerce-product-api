@@ -29,12 +29,22 @@ public class ProductServiceImpl implements ProductService {
 
 
     public List<Product> getProductList() {
-        List<Product> productList = productRepository.findAll();
-        logger.info(ApplicationConstant.MESSAGE_DIVISOR);
-        productList.stream().forEach(
-                product -> logger.info(product.getName())
-        );
-        return productList;
+        try {
+            List<Product> productList = productRepository.findAll();
+            logger.info(ApplicationConstant.MESSAGE_DIVISOR);
+            productList.stream().forEach(
+                    product -> logger.info(product.getName())
+            );
+            if (productList.size() > 0) {
+                return productList;
+            } else {
+                logger.info(ApplicationConstant.MESSAGE_ERROR_PRODUCT_LIST_EMPTY);
+                throw new ProductException(HttpStatus.BAD_REQUEST, ApplicationConstant.MESSAGE_ERROR_PRODUCT_LIST_EMPTY, productList);
+            }
+        } catch (Exception e){
+            throw new ProductException(HttpStatus.BAD_REQUEST, "Error Listing products ", null);
+        }
+
     }
 
     public Product getProductById(String productId) {

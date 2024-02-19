@@ -5,6 +5,7 @@ public class ApplicationConstant {
     public static final String MESSAGE_DIVISOR = "---------------------------------------------";
     public static final String MESSAGE_ERROR_ID = "Error, id: ";
     public static final String MESSAGE_NOT_FOUND = " not found.";
+    public static final String MESSAGE_ERROR_PRODUCT_LIST_EMPTY = "List of products is empty.";
     public static final String MESSAGE_ERROR_PRODUCTS_COULDNT_BE_MODIFIED = "Error, the list of products couldn't be modified.";
     public static final String MESSAGE_ERROR_PRODUCTS_COULDNT_BE_INSERTED = "Error, the list of products couldn't be inserted.";
     public static final String MESSAGE_ID = "id: ";

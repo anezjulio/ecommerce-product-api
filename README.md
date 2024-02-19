@@ -1,5 +1,47 @@
 # ecommerce-product-api
 
+Controller -> Service -> Repository -> Response
+
+> LIST_PRODUCT
+
+   Controller   ->  Service     ->  Repository  ->  Response
+ResponseEntity<ProductResponseDTO> listProduct() ->
+List<Product> getProductList() -> 
+productRepository.findAll() -> 
+return Product
+
+FIND_PRODUCT_BY_PRODUCT_ID
+
+>  Controller -> Service -> Repository -> Response
+
+Product getProductById(String productId) ->
+productRepository.findById(Long.parseLong(productId)) ->
+return List<Product>
+
+
+INSERT_PRODUCT
+
+>  Controller -> Service -> Repository -> Response
+
+List<Product> insertProduct(List<Product> requestProductList) ->
+productRepository.saveAll(requestProductList); ->
+-> return List<Product>
+
+MODIFY_PRODUCT
+
+>  Controller -> Service -> Repository -> Response
+
+List<Product> modifyProduct(List<Product> requestListProductDTO) ->
+productRepository.saveAllAndFlush(requestListProductDTO); ->
+return List<Product>
+
+DELETE_PRODUCT_BY_PRODUCT_ID
+
+>  Controller -> Service -> Repository -> Response
+
+List<Product> modifyProduct(List<Product> requestListProductDTO) ->
+productRepository.saveAllAndFlush(requestListProductDTO); ->
+return List<Product>
 
 
 
@@ -13,7 +55,6 @@
 
 
 ## User Authentication and Authorization:
-> [!NOTE] 
 > Users must register or log in to the platform.
 User roles and permissions are defined (admin, customer, etc.).
 Secure authentication mechanisms are implemented to protect user data.

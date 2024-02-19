@@ -8,8 +8,8 @@
         <version>2.7.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.tilin</groupId>
-    <artifactId>ecommerce.api.product</artifactId>
+    <groupId>com.anezjm</groupId>
+    <artifactId>ecommerce.product.api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ecommerce-product-api</name>
     <description>ecommerce-product-api</description>
